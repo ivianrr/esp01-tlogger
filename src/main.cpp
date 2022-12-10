@@ -38,7 +38,7 @@ const char* ssid = SSID;
 const char* password = PASSWORD;
 
 // If true, failing to connect to the first wifi 
-bool wifi2 = false; 
+bool wifi2 = true; 
 const char* ssid2 = SSID2;
 const char* password2 = PASSWORD2;
 
@@ -169,7 +169,7 @@ void setup() {
     WiFi.persistent(false);
 
     if (!WiFi.mode(WIFI_STA)
-        || !(WiFi.begin(ssid, password))
+        || !(WiFi.begin(ssid, password) || (wifi2 && WiFi.begin(ssid2, password2)))
         || (WiFi.waitForConnectResult(10000) != WL_CONNECTED)) {
       WiFi.mode(WIFI_OFF);
       Serial.println("Cannot connect!");
