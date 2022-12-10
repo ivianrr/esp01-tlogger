@@ -168,9 +168,17 @@ void setup() {
     Serial.println("Cannot resume WiFi connection, connecting via begin...");
     WiFi.persistent(false);
 
-    if (!WiFi.mode(WIFI_STA)
-        || !(WiFi.begin(ssid, password) || (wifi2 && WiFi.begin(ssid2, password2)))
-        || (WiFi.waitForConnectResult(10000) != WL_CONNECTED)) {
+    if 
+      (!WiFi.mode(WIFI_STA)
+              || 
+          !( !(   !(WiFi.begin(ssid, password))
+              || (WiFi.waitForConnectResult(10000) != WL_CONNECTED))
+          ||
+              !(   !(wifi2 && WiFi.begin(ssid2, password2))
+              || (WiFi.waitForConnectResult(10000) != WL_CONNECTED))
+          )  
+      ) 
+    {
       WiFi.mode(WIFI_OFF);
       Serial.println("Cannot connect!");
       Serial.flush();
